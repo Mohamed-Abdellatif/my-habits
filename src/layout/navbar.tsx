@@ -4,16 +4,10 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { NavLink, Outlet } from "react-router";
-import { cn } from "@/lib/utils";
+import { NavLink, Outlet, useLocation } from "react-router";
 
 export default function NavbarLayout() {
-  const navItemClass = cn(
-    "text-sm font-medium transition-colors px-4 py-2 rounded-md",
-    "hover:text-primary hover:bg-muted",
-    "data-[active=true]:bg-muted data-[active=true]:text-primary"
-  );
-
+  const location = useLocation();
   return (
     <>
       <header className="sticky top-0 z-50 bg-white shadow-sm border-b">
@@ -25,9 +19,7 @@ export default function NavbarLayout() {
                 <NavigationMenuLink asChild>
                   <NavLink
                     to="/"
-                    className={({ isActive }) =>
-                      cn(navItemClass, isActive && "bg-muted text-primary")
-                    }
+                    className={location.pathname === "/" ? "text-blue-700 border" : ""}
                   >
                     Habits
                   </NavLink>
@@ -37,8 +29,10 @@ export default function NavbarLayout() {
                 <NavigationMenuLink asChild>
                   <NavLink
                     to="/add"
-                    className={({ isActive }) =>
-                      cn(navItemClass, isActive && "data-[active=true]")
+                    className={
+                      location.pathname === "/add"
+                        ? "text-blue-700 border"
+                        : ""
                     }
                   >
                     Add Habit
@@ -49,8 +43,10 @@ export default function NavbarLayout() {
                 <NavigationMenuLink asChild>
                   <NavLink
                     to="/check"
-                    className={({ isActive }) =>
-                      cn(navItemClass, isActive && "data-[active=true]")
+                    className={
+                      location.pathname === "/check"
+                        ? "text-blue-700 border"
+                        : ""
                     }
                   >
                     Complete Habit
@@ -61,8 +57,10 @@ export default function NavbarLayout() {
                 <NavigationMenuLink asChild>
                   <NavLink
                     to="/calendar"
-                    className={({ isActive }) =>
-                      cn(navItemClass, isActive && "data-[active=true]")
+                    className={
+                      location.pathname === "/calendar"
+                        ? "text-blue-700 border"
+                        : ""
                     }
                   >
                     Calendar
