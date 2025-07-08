@@ -4,23 +4,16 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import rrulePlugin from "@fullcalendar/rrule";
+import useHabitQuery from "@/hooks/useAddHabbit";
 
-const habits = [
-  {
-    id: "1", // unique identifier (string)
-    name: "habit1", // name of the habit
-    description: "sdfds", // optional description
-    frequency: "daily", // e.g., "daily", "weekly"
-    days: ["Monday", "Wednesday"], // e.g., ["Monday", "Wednesday"]
-    completedDates: ["2025-07-01", "2025-07-03"], // e.g., ["2025-07-01", "2025-07-03"]
-    createdAt: "2025-07-01", // creation timestamp
-  },
-];
+
 
 const HabitsCalendar = () => {
+const { data } = useHabitQuery("habit");
+
   const events = useMemo(() => {
-    return habits.map((habit) => ({
-      title: `${habit.name}: ${habit.completedDates.length}`,
+    return data?.map((habit:IHabit) => ({
+      title: `${habit.name}: ${habit.completedDates?.length}`,
       startRecur: moment(habit.createdAt).format("YYYY-MM-DD"),
       daysOfWeek: [0, 1, 2, 3, 4, 5, 6],
       backgroundColor: "var(--bs-primary)",
@@ -28,10 +21,10 @@ const HabitsCalendar = () => {
       borderColor: "var(--bs-primary)",
       extendedProps: {
         completedDates: habit.completedDates,
-        habitId: habit.id,
+        habitId: habit.name,
       },
     }));
-  }, [habits]);
+  }, [data]);
 
   const handleDateClick = () => {
     // const dateClicked = info.dateStr;

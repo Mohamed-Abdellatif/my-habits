@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useHabitQuery from "@/hooks/useAddHabbit";
 import { HabitObj } from "@/utils/constants";
+import moment from "moment";
 
 import { useRef, useState } from "react";
 import Select from "react-select";
@@ -28,12 +29,12 @@ const AddHabit = () => {
   const habitQuery = useHabitQuery("habit");
 
   const handleChange = (e: any) => {
-    if (e.target) {
+    if (e?.target) {
       setHabitObj({
         ...habitObj,
         [e.target.name]: e.target.value,
       });
-    } else if (e.value) {
+    } else if (e?.value) {
       setHabitObj({
         ...habitObj,
         frequency: e.value,
@@ -43,7 +44,10 @@ const AddHabit = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    habitQuery.addHabit(habitObj);
+    habitQuery.addHabit({
+      ...habitObj,
+      createdAt: moment().format().slice(0, 10),
+    });
     setHabitObj(HabitObj);
   };
 
@@ -91,12 +95,14 @@ const AddHabit = () => {
                 id="frequency"
                 options={options}
                 onChange={handleChange}
+                isClearable
+                required
                 value={
                   options.filter(
-                    (option) => option.value !== habitObj.frequency
+                    (option) => option.value === habitObj.frequency
                   )[0]
                 }
-                required
+                
               />
             </div>
             {/* {frequency === "custom" && (
