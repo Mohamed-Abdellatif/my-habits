@@ -12,6 +12,14 @@ const Navbar = () => {
     <>
       <NavigationMenu viewport={false}>
         <NavigationMenuList>
+            <NavigationMenuItem>
+            <NavigationMenuLink
+              asChild
+              className={navigationMenuTriggerStyle()}
+            >
+              <NavLink to="/">Habits</NavLink>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink
               asChild

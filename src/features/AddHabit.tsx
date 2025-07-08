@@ -9,7 +9,10 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import useHabitQuery from "@/hooks/useAddHabbit";
+import { HabitObj } from "@/utils/constants";
+
+import { useRef, useState } from "react";
 import Select from "react-select";
 
 const options = [
@@ -20,7 +23,33 @@ const options = [
 ];
 
 const AddHabit = () => {
-  const [frequency, setfrequency] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
+  const [habitObj, setHabitObj] = useState(HabitObj);
+  const habitQuery = useHabitQuery("habit");
+
+  const handleChange = (e: any) => {
+    if (e.target) {
+      setHabitObj({
+        ...habitObj,
+        [e.target.name]: e.target.value,
+      });
+    } else if (e.value) {
+      setHabitObj({
+        ...habitObj,
+        frequency: e.value,
+      });
+    }
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    habitQuery.addHabit(habitObj);
+    setHabitObj(HabitObj);
+  };
+
+  const handleAddClick = () => {
+    formRef.current?.requestSubmit();
+  };
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
@@ -30,43 +59,64 @@ const AddHabit = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
+        <form onSubmit={handleSubmit} ref={formRef}>
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
-              <Label htmlFor="text">Habit Name</Label>
-              <Input id="name" name="name" type="text" required />
+              <Label htmlFor="name">Habit Name</Label>
+              <Input
+                id="name"
+                name="name"
+                type="text"
+                required
+                onChange={handleChange}
+                value={habitObj.name}
+              />
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
-                <Label htmlFor="text">Description</Label>
+                <Label htmlFor="description">Description</Label>
               </div>
-              <Input id="description" name="description" type="text" />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="text">Frequency</Label>
-              <Select
-                options={options}
-                onChange={(e) => {
-                  if (e?.value) {
-                    setfrequency(e?.value);
-                  }
-                }}
+              <Input
+                id="description"
+                name="description"
+                type="text"
+                onChange={handleChange}
+                value={habitObj.description}
+                required
               />
             </div>
-            {frequency === "custom" && (
+            <div className="grid gap-2">
+              <Label>Frequency</Label>
+              <Select
+                id="frequency"
+                options={options}
+                onChange={handleChange}
+                value={
+                  options.filter(
+                    (option) => option.value !== habitObj.frequency
+                  )[0]
+                }
+                required
+              />
+            </div>
+            {/* {frequency === "custom" && (
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="text">Description</Label>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" type="password" required onChange={handleChange}/>
               </div>
-            )}
+            )} */}
           </div>
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <Button type="submit" className="w-full">
-          Login
+        <Button
+          type="submit"
+          onClick={() => handleAddClick()}
+          className="w-full"
+        >
+          Add Habit
         </Button>
       </CardFooter>
     </Card>
