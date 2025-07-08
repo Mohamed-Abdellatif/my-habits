@@ -51,7 +51,7 @@ const AddHabit = () => {
     formRef.current?.requestSubmit();
   };
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full max-w-sm bg-white">
       <CardHeader>
         <CardTitle>Add Habit</CardTitle>
         <CardDescription>

@@ -12,7 +12,7 @@ import useHabitQuery from "@/hooks/useAddHabbit";
 const HabitCard = ({ habit }: { habit: IHabit }) => {
   const { deleteHabit } = useHabitQuery("habit");
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full max-w-sm bg-white">
       <CardHeader>
         <CardTitle>{habit.name}</CardTitle>
         <CardDescription>{habit.description}</CardDescription>
