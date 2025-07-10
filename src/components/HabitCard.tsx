@@ -20,13 +20,13 @@ const HabitCard = ({ habit }: { habit: IHabit }) => {
         <CardDescription className=""></CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-3 gap-4 capitalize">
-          <div className="text-start">Description:</div>
-          <div className="">{habit.description}</div>
+        <div className="grid grid-cols-3 gap-4 capitalize text-start truncate">
+          <div className="col-span-1">Description:</div>
+          <div className="col-span-2">{habit.description}</div>
         </div>
-        <div className="grid grid-cols-3 gap-4 capitalize">
-          <div className="text-start">Frequency:</div>
-          <div className="">{habit.frequency}</div>
+        <div className="grid grid-cols-3 gap-4 capitalize text-start">
+          <div className="col-span-1">Frequency:</div>
+          <div className="col-span-1">{habit.frequency}</div>
         </div>
       </CardContent>
       <CardFooter className="flex-col gap-2">

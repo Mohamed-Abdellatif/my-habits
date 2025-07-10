@@ -46,7 +46,7 @@ const AddHabit = () => {
     e.preventDefault();
     habitQuery.addHabit({
       ...habitObj,
-      createdAt: moment().format().slice(0, 10),
+      createdAt: moment().format(),
     });
     setHabitObj(HabitObj);
   };

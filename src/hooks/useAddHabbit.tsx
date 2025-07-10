@@ -48,10 +48,13 @@ const useHabitQuery = (key: string) => {
     if (data?.length == 1) {
       updateHabit([habitToEdit]);
     } else {
-      updateHabit(data.filter((habit: IHabit) => habit.name !== habitToEdit.name).concat(habitToEdit));
+      updateHabit(
+        data
+          .filter((habit: IHabit) => habit.name !== habitToEdit.name)
+          .concat(habitToEdit)
+      );
     }
   };
-
 
   const deleteHabit = (habitName: string) => {
     if (!data.map((habit: IHabit) => habit.name).includes(habitName)) {
@@ -65,7 +68,11 @@ const useHabitQuery = (key: string) => {
     }
   };
 
-  return { data, addHabit, deleteHabit,editHabit };
+  const sortedData = data?.sort(
+    (a: IHabit, b: IHabit) =>
+      new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+  );
+  return { data: sortedData, addHabit, deleteHabit, editHabit };
 };
 
 export default useHabitQuery;
