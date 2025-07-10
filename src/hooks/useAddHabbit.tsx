@@ -39,6 +39,20 @@ const useHabitQuery = (key: string) => {
       updateHabit(data.concat(habitToAdd));
     }
   };
+
+  const editHabit = (habitToEdit: IHabit) => {
+    if (!data.map((habit: IHabit) => habit.name).includes(habitToEdit.name)) {
+      alert("Does not exist");
+      return;
+    }
+    if (data?.length == 1) {
+      updateHabit([habitToEdit]);
+    } else {
+      updateHabit(data.filter((habit: IHabit) => habit.name !== habitToEdit.name).concat(habitToEdit));
+    }
+  };
+
+
   const deleteHabit = (habitName: string) => {
     if (!data.map((habit: IHabit) => habit.name).includes(habitName)) {
       alert("Does not exist");
@@ -51,7 +65,7 @@ const useHabitQuery = (key: string) => {
     }
   };
 
-  return { data, addHabit, deleteHabit };
+  return { data, addHabit, deleteHabit,editHabit };
 };
 
 export default useHabitQuery;

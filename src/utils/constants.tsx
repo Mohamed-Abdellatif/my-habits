@@ -1,3 +1,5 @@
+
+
 export const HabitObj = {
   name: "",
   description: "",
@@ -5,4 +7,5 @@ export const HabitObj = {
   days: [],
   completedDates: [],
   createdAt: "",
+  startDate: "",
 };

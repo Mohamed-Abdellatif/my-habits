@@ -6,6 +6,12 @@ interface IHabit {
   description: string,
   frequency: string,
   days?: number[],
-  completedDates?: string[],
+  completedDates?: ICompletedDay[],
   createdAt: string,
+  startDate:string
 };
+
+interface ICompletedDay{
+  date:string,
+  value:number,
+}

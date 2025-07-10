@@ -42,20 +42,6 @@ export default function NavbarLayout() {
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
                   <NavLink
-                    to="/check"
-                    className={
-                      location.pathname === "/check"
-                        ? "text-blue-700 border"
-                        : ""
-                    }
-                  >
-                    Complete Habit
-                  </NavLink>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <NavLink
                     to="/calendar"
                     className={
                       location.pathname === "/calendar"

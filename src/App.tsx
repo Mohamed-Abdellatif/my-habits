@@ -12,7 +12,7 @@ function App() {
       <Route path="/" element={<Navbar />}>
         <Route index element={<HabitsList />} />
         <Route path="/calendar" element={<HabitsCalendar />} />
-        <Route path="/check" element={<CompleteHabit />} />
+        <Route path="/check/:habitName" element={<CompleteHabit />} />
         <Route path="/add" element={<AddHabit />} />
       </Route>
     </Routes>

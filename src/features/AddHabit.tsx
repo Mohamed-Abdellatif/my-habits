@@ -20,7 +20,7 @@ const options = [
   { value: "daily", label: "Daily" },
   { value: "weekly", label: "Weekly" },
   { value: "monthly", label: "Monthly" },
-  { value: "custom", label: "Custom" },
+  // { value: "custom", label: "Custom" },
 ];
 
 const AddHabit = () => {
@@ -55,7 +55,7 @@ const AddHabit = () => {
     formRef.current?.requestSubmit();
   };
   return (
-    <Card className="w-full max-w-sm bg-white">
+    <Card className="w-full mx-auto max-w-sm bg-white">
       <CardHeader>
         <CardTitle>Add Habit</CardTitle>
         <CardDescription>
@@ -92,6 +92,13 @@ const AddHabit = () => {
             <div className="grid gap-2">
               <Label>Frequency</Label>
               <Select
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+                    borderRadius: "8px",
+                    borderColor: "black",
+                  }),
+                }}
                 id="frequency"
                 options={options}
                 onChange={handleChange}
@@ -102,17 +109,22 @@ const AddHabit = () => {
                     (option) => option.value === habitObj.frequency
                   )[0]
                 }
-                
               />
             </div>
-            {/* {frequency === "custom" && (
-              <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="text">Description</Label>
-                </div>
-                <Input id="password" type="password" required onChange={handleChange}/>
+
+            <div className="grid gap-2">
+              <div className="flex items-center">
+                <Label>Start Date</Label>
               </div>
-            )} */}
+              <Input
+                type="date"
+                name="startDate"
+                value={habitObj.startDate}
+                required
+                onChange={handleChange}
+                min={moment().format("YYYY-MM-DD")}
+              />
+            </div>
           </div>
         </form>
       </CardContent>
@@ -120,7 +132,7 @@ const AddHabit = () => {
         <Button
           type="submit"
           onClick={() => handleAddClick()}
-          className="w-full"
+          className="w-full cursor-pointer hover:bg-blue-100"
         >
           Add Habit
         </Button>
