@@ -1,5 +1,5 @@
 import useHabitQuery from "@/hooks/useAddHabbit";
-import CompleteHabitCard from "./completeHabitCard";
+import CompleteHabitCard from "../components/completeHabitCard";
 import { useParams } from "react-router";
 
 const CompleteHabit = () => {

@@ -3,8 +3,8 @@ import "./App.css";
 import HabitsCalendar from "./features/HabitsCalendar";
 import Navbar from "./layout/navbar";
 import AddHabit from "./features/AddHabit";
-import HabitsList from "./features/habitsList";
-import CompleteHabit from "./features/completeHabit";
+import HabitsList from "./features/HabitsList";
+import CompleteHabit from "./features/CompleteHabit";
 
 function App() {
   return (

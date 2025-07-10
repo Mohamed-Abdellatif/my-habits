@@ -1,5 +1,5 @@
 import useHabitQuery from "@/hooks/useAddHabbit";
-import HabitCard from "./HabitCard";
+import HabitCard from "../components/HabitCard";
 
 const HabitsList = () => {
   const { data } = useHabitQuery("habit");
