@@ -141,13 +141,16 @@ const HabitsCalendar = () => {
 
         return (
           <div className="flex justify-center font-bold px-1 rounded relative cursor-pointer">
-            {value ? (
+            {value !== 0 && new Date(today) >= new Date(eventDay) && (
+              <div className="absolute top-1/2 left-0 w-full border-t-2 border-green-500 transform -translate-y-1/2"></div>
+            )}
+            {value === 0 && new Date(today) > new Date(eventDay) && (
               <div className="absolute top-1/2 left-0 w-full border-t-2 border-red-500 transform -translate-y-1/2"></div>
-            ) : (
-              ""
             )}
             <div className=" capitalize mr-2">{event.title}</div>:
-            <div className="ml-2">{today === eventDay ? value : "Not Yet"}</div>
+            <div className="ml-2">
+              {today === eventDay || today > eventDay ? value : "Not Yet"}
+            </div>
           </div>
         );
       }}
