@@ -2,16 +2,16 @@
 
 interface IHabit {
   id?: number;
-  name: string,
-  description: string,
-  frequency: string,
-  days?: number[],
-  completedDates?: ICompletedDay[],
-  createdAt: string,
-  startDate:string
-};
+  name: string;
+  description: string;
+  frequency: string;
+  days?: number[];
+  completedDates?: ICompletedDay[];
+  createdAt: string;
+  startDate: string;
+}
 
-interface ICompletedDay{
-  date:string,
-  value:number,
+interface ICompletedDay {
+  date: string;
+  value: string;
 }

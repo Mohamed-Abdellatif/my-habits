@@ -19,7 +19,9 @@ export default function NavbarLayout() {
                 <NavigationMenuLink asChild>
                   <NavLink
                     to="/"
-                    className={location.pathname === "/" ? "text-blue-700 border" : ""}
+                    className={
+                      location.pathname === "/" ? "text-blue-700 border" : ""
+                    }
                   >
                     Habits
                   </NavLink>
@@ -30,9 +32,7 @@ export default function NavbarLayout() {
                   <NavLink
                     to="/add"
                     className={
-                      location.pathname === "/add"
-                        ? "text-blue-700 border"
-                        : ""
+                      location.pathname === "/add" ? "text-blue-700 border" : ""
                     }
                   >
                     Add Habit
@@ -50,6 +50,20 @@ export default function NavbarLayout() {
                     }
                   >
                     Calendar
+                  </NavLink>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <NavLink
+                    to="/chart"
+                    className={
+                      location.pathname === "/chart"
+                        ? "text-blue-700 border"
+                        : ""
+                    }
+                  >
+                    Chart
                   </NavLink>
                 </NavigationMenuLink>
               </NavigationMenuItem>

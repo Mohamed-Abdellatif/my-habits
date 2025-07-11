@@ -12,7 +12,7 @@ const useHabitQuery = (key: string) => {
     localStorage.setItem(key, JSON.stringify(data));
   };
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: [key],
     queryFn: () => getLocalHabit(),
     staleTime: 10,
@@ -23,6 +23,7 @@ const useHabitQuery = (key: string) => {
       setLocalHabit(newData);
       return newData;
     },
+
     onSuccess: (data) => {
       queryClient.setQueryData([key], data);
     },
@@ -72,7 +73,7 @@ const useHabitQuery = (key: string) => {
     (a: IHabit, b: IHabit) =>
       new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
   );
-  return { data: sortedData, addHabit, deleteHabit, editHabit };
+  return { data: sortedData, isLoading, addHabit, deleteHabit, editHabit };
 };
 
 export default useHabitQuery;
