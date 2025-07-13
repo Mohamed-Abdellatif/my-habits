@@ -112,7 +112,7 @@ const HabitsCalendar = () => {
     } else if (!isCompletedToday) {
       navigate(`/check/${info.event.extendedProps.habitName}`);
     } else {
-      alert("You have already completed this habit today.");
+      alert("You have already completed this habit TODAY.");
     }
   };
 
