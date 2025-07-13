@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import useHabitQuery from "@/hooks/useAddHabbit";
+import useHabitQuery from "@/hooks/useHabitQuery";
 import { HabitObj } from "@/utils/constants";
 import moment from "moment";
 
@@ -26,7 +26,7 @@ const options = [
 const AddHabit = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const [habitObj, setHabitObj] = useState(HabitObj);
-  const habitQuery = useHabitQuery("habit");
+  const habitQuery = useHabitQuery();
 
   const handleChange = (e: any) => {
     if (e?.target) {

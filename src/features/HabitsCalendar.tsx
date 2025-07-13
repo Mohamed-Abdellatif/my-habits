@@ -5,7 +5,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import rrulePlugin from "@fullcalendar/rrule";
 import { RRule } from "rrule";
-import useHabitQuery from "@/hooks/useAddHabbit";
+import useHabitQuery from "@/hooks/useHabitQuery";
 import { useNavigate } from "react-router";
 
 const weekdayMap = [
@@ -23,7 +23,7 @@ interface RecurrenceOptions {
 }
 
 const HabitsCalendar = () => {
-  const { data } = useHabitQuery("habit");
+  const { data } = useHabitQuery();
   const navigate = useNavigate();
   const today = moment().format().slice(0, 10);
 

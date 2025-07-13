@@ -8,13 +8,13 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import useHabitQuery from "@/hooks/useAddHabbit";
+import useHabitQuery from "@/hooks/useHabitQuery";
 import moment from "moment";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
 const CompleteHabitCard = ({ habit }: { habit: IHabit }) => {
-  const { editHabit } = useHabitQuery("habit");
+  const { editHabit } = useHabitQuery();
   const navigate = useNavigate();
   const [habitObj, setHabitObj] = useState(habit);
   const [value, setValue] = useState("");

@@ -7,10 +7,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import useHabitQuery from "@/hooks/useAddHabbit";
+import useHabitQuery from "@/hooks/useHabitQuery";
 
 const HabitCard = ({ habit }: { habit: IHabit }) => {
-  const { deleteHabit } = useHabitQuery("habit");
+  const { deleteHabit } = useHabitQuery();
   return (
     <Card className="w-full max-w-sm bg-white">
       <CardHeader>

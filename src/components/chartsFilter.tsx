@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import useHabitQuery from "@/hooks/useAddHabbit";
+import useHabitQuery from "@/hooks/useHabitQuery";
 import { useAtom } from "jotai";
 import { chartOptionAtom } from "@/atoms/chartOption";
 const FormSchema = z.object({
@@ -29,7 +29,7 @@ const FormSchema = z.object({
 });
 
 const ChartsFilter = () => {
-  const { data, isLoading } = useHabitQuery("habit");
+  const { data, isLoading } = useHabitQuery();
   const [chartOptions, setChartOptions] = useAtom(chartOptionAtom);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

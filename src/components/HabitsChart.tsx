@@ -19,13 +19,13 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart";
-import useHabitQuery from "@/hooks/useAddHabbit";
+import useHabitQuery from "@/hooks/useHabitQuery";
 import useGetMonthlyData from "@/hooks/useGetMonthlyData";
 import { chartOptionAtom } from "@/atoms/chartOption";
 import { useAtom } from "jotai";
 
 const HabitsChart = () => {
-  const { data, isLoading } = useHabitQuery("habit");
+  const { data, isLoading } = useHabitQuery();
   const [chartOptions] = useAtom(chartOptionAtom);
 
   if (isLoading) return <div>Loading...</div>;

@@ -1,19 +1,23 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
-const useHabitQuery = (key: string) => {
+const Key = import.meta.env.VITE_HABIT_KEY;
+
+
+
+const useHabitQuery = () => {
   const queryClient = useQueryClient();
 
   const getLocalHabit = () => {
-    const data = localStorage.getItem(key);
+    const data = localStorage.getItem(Key);
     return data ? JSON.parse(data) : null;
   };
 
   const setLocalHabit = (data: any) => {
-    localStorage.setItem(key, JSON.stringify(data));
+    localStorage.setItem(Key, JSON.stringify(data));
   };
 
   const { data, isLoading } = useQuery({
-    queryKey: [key],
+    queryKey: [Key],
     queryFn: () => getLocalHabit(),
     staleTime: 10,
   });
@@ -25,7 +29,7 @@ const useHabitQuery = (key: string) => {
     },
 
     onSuccess: (data) => {
-      queryClient.setQueryData([key], data);
+      queryClient.setQueryData([Key], data);
     },
   });
 
