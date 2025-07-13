@@ -37,7 +37,7 @@ const useGetMonthlyData = (habit: IHabit, months: number = 3) => {
   }));
   const from = wantedPeriod[0]?.label;
   const to = wantedPeriod[months - 1]?.label;
-  const rangeString = `${from} - ${to}`;
+  const rangeString = months===1?from:`${from} - ${to}`;
   return { monthlyData, rangeString };
 };
 

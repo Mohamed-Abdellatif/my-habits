@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -10,154 +9,122 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import useHabitQuery from "@/hooks/useAddHabbit";
-import { useEffect, useMemo } from "react";
-import { DatesCheckBoxes, DatesCheckBoxesNames } from "@/utils/constants";
 import { useAtom } from "jotai";
 import { chartOptionAtom } from "@/atoms/chartOption";
-
 const FormSchema = z.object({
-  items: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "You have to select at least one item.",
-  }),
+  type: z.enum(
+    [
+      "lastmonth",
+      "last3months",
+      "last6months",
+      "last12months",
+      "Last 12 Months",
+    ],
+    {
+      error: "You need to select a notification type.",
+    }
+  ),
 });
 
 const ChartsFilter = () => {
-  const [chartOptions, setChartOptions] = useAtom(chartOptionAtom);
   const { data, isLoading } = useHabitQuery("habit");
-
-  const habitsCheckBoxes = useMemo(() => {
-    const habitItems = data?.map((habit: IHabit) => ({
-      id: habit.name,
-      label: habit.name,
-    }));
-    return habitItems;
-  }, [data]);
-
+  const [chartOptions, setChartOptions] = useAtom(chartOptionAtom);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      items: ["lastmonth", `${data?.[0]?.name}`],
-    },
   });
-  useEffect(() => {
-    if (data?.[0]?.name) {
-      form.reset({
-        items: ["lastmonth", data[0].name],
-      });
-    }
-  }, [data]);
 
-  const onHabitClick = (checked: boolean, field: any, item: any) => {
-    setChartOptions({ ...chartOptions, habit: item.id });
-    const otherHabitNames = data
-      ?.map((habit: IHabit) => habit.name)
-      .filter((name: string) => name !== item.id);
-    if (checked) {
-      field.onChange(
-        [...field.value, item.id].filter(
-          (value: any) => !otherHabitNames?.includes(value)
-        )
-      );
-    } else {
-      field.onChange(field.value?.filter((value: any) => value !== item.id));
-    }
-  };
-  const onDateClick = (checked: boolean, field: any, item: any) => {
-    switch (item.id) {
-      case "lastmonth":
-        setChartOptions({ ...chartOptions, months: 1 });
-        break;
-      case "last3months":
-        setChartOptions({ ...chartOptions, months: 3 });
-        break;
-      case "last6months":
-        setChartOptions({ ...chartOptions, months: 6 });
-        break;
-      case "last12months":
-        setChartOptions({ ...chartOptions, months: 12 });
-        break;
-    }
-    const otherDateNames = DatesCheckBoxesNames.filter(
-      (name: string) => name !== item.id
-    );
-    if (checked) {
-      field.onChange(
-        [...field.value, item.id].filter(
-          (value: any) => !otherDateNames?.includes(value)
-        )
-      );
-    } else {
-      field.onChange(field.value?.filter((value: any) => value !== item.id));
-    }
-  };
-  if (isLoading) return "Loading...";
+  if (isLoading) return <div>Loading...</div>;
+
+  const habitNames = data?.map((habit: IHabit) => habit.name) || [];
 
   return (
     <Form {...form}>
-      <form className="space-y-8">
+      <form className=" space-y-6">
         <FormField
           control={form.control}
-          name="items"
+          name="type"
           render={() => (
-            <FormItem>
-              <div className="mb-1">
-                <FormLabel className="text-base">Sidebar</FormLabel>
-              </div>
-              {DatesCheckBoxes?.map((item) => (
-                <FormField
-                  key={item.id}
-                  control={form.control}
-                  name="items"
-                  render={({ field }) => {
+            <FormItem className="space-y-3">
+              <FormLabel>Wanted Period</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={(value) => {
+                    setChartOptions({
+                      ...chartOptions,
+                      months: parseInt(value),
+                    });
+                  }}
+                  defaultValue={"1"}
+                  className="flex flex-col"
+                >
+                  <FormItem className="flex items-center gap-3">
+                    <FormControl>
+                      <RadioGroupItem value="1" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Last Month</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center gap-3">
+                    <FormControl>
+                      <RadioGroupItem value="3" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Last 3 Months</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center gap-3">
+                    <FormControl>
+                      <RadioGroupItem value="6" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Last 6 Months</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center gap-3">
+                    <FormControl>
+                      <RadioGroupItem value="12" />
+                    </FormControl>
+                    <FormLabel className="font-normal">
+                      Last 12 Months
+                    </FormLabel>
+                  </FormItem>
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="type"
+          render={() => (
+            <FormItem className="space-y-3">
+              <FormLabel>Habit:</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={(value) => {
+                    setChartOptions({
+                      ...chartOptions,
+                      habit: value,
+                    });
+                  }}
+                  defaultValue={habitNames[0] || ""}
+                  className="flex flex-col"
+                >
+                  {habitNames.map((habitName: string) => {
                     return (
                       <FormItem
-                        key={item.id}
-                        className="flex flex-row items-center gap-2"
+                        key={habitName}
+                        className="flex items-center gap-3"
                       >
                         <FormControl>
-                          <Checkbox
-                            checked={field.value?.includes(item.id)}
-                            onCheckedChange={(checked) =>
-                              onDateClick(Boolean(checked), field, item)
-                            }
-                          />
+                          <RadioGroupItem value={habitName} />
                         </FormControl>
-                        <FormLabel className="text-sm font-normal">
-                          {item.label}
+                        <FormLabel className="font-normal capitalize">
+                          {habitName}
                         </FormLabel>
                       </FormItem>
                     );
-                  }}
-                />
-              ))}
-              {habitsCheckBoxes?.map((item: { id: string; label: string }) => (
-                <FormField
-                  key={item.id}
-                  control={form.control}
-                  name="items"
-                  render={({ field }) => {
-                    return (
-                      <FormItem
-                        key={item.id}
-                        className="flex flex-row items-center gap-2"
-                      >
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value?.includes(item.id)}
-                            onCheckedChange={(checked) =>
-                              onHabitClick(Boolean(checked), field, item)
-                            }
-                          />
-                        </FormControl>
-                        <FormLabel className="text-sm font-normal capitalize">
-                          {item.label}
-                        </FormLabel>
-                      </FormItem>
-                    );
-                  }}
-                />
-              ))}
+                  })}
+                </RadioGroup>
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}

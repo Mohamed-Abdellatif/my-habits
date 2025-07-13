@@ -119,7 +119,7 @@ const HabitsCalendar = () => {
   return (
     <FullCalendar
       plugins={[dayGridPlugin, interactionPlugin, rrulePlugin]}
-      initialView="dayGridMonth"
+      initialView="dayGridDay"
       events={events}
       eventClick={(info) => handleEventClick(info)}
       eventBorderColor="#fff"
@@ -127,7 +127,7 @@ const HabitsCalendar = () => {
       headerToolbar={{
         left: "prev,next today",
         center: "title",
-        right: "dayGridMonth,dayGridWeek",
+        right: "dayGridMonth,dayGridWeek,dayGridDay",
       }}
       eventContent={(arg) => {
         const event = arg.event;
@@ -140,7 +140,7 @@ const HabitsCalendar = () => {
           )?.value || 0;
 
         return (
-          <div className="flex justify-center font-bold px-1 rounded relative cursor-pointer">
+          <div className="flex justify-center font-bold px-1 rounded relative cursor-pointer align-center ">
             {value !== 0 && new Date(today) >= new Date(eventDay) && (
               <div className="absolute top-1/2 left-0 w-full border-t-2 border-green-500 transform -translate-y-1/2"></div>
             )}
@@ -154,6 +154,11 @@ const HabitsCalendar = () => {
           </div>
         );
       }}
+      eventClassNames={(arg) => {
+        const viewType = arg.view.type;
+        return viewType === "dayGridDay" ? ["w-100 justify-self-center my-3"] : [];
+      }}
+      
     />
   );
 };

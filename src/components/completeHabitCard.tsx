@@ -68,6 +68,7 @@ const CompleteHabitCard = ({ habit }: { habit: IHabit }) => {
           type="submit"
           onClick={() => handleCompleteClick()}
           variant="outline"
+          className="cursor-pointer"
         >
           Complete Habit
         </Button>

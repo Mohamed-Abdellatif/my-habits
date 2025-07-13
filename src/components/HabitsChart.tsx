@@ -72,7 +72,7 @@ const HabitsChart = () => {
       </CardHeader>
 
       <CardContent>
-        <div className="w-full h-64">
+        <div className="w-full h-100">
           <ResponsiveContainer width="100%" height="100%">
             <ChartContainer config={chartConfig}>
               <BarChart accessibilityLayer data={chartData}>
@@ -92,7 +92,7 @@ const HabitsChart = () => {
                   dataKey="habit"
                   fill="var(--color-habit)"
                   radius={8}
-                  label={{ position: "top", fill: "#000", fontSize: 12 }}
+                  label={{ position: "middle", fill: "#000", fontSize: 10 }}
                 />
               </BarChart>
             </ChartContainer>
