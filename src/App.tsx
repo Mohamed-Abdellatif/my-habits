@@ -3,9 +3,9 @@ import "./App.css";
 import HabitsCalendar from "./features/HabitsCalendar";
 import Navbar from "./layout/navbar";
 import AddHabit from "./features/AddHabit";
+import HabitStats from "./features/HabitStats";
 import HabitsList from "./features/HabitsList";
 import CompleteHabit from "./features/CompleteHabit";
-import HabitStats from "./features/HabitStats";
 
 function App() {
   return (
