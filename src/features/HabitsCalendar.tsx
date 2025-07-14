@@ -140,15 +140,15 @@ const HabitsCalendar = () => {
           )?.value || 0;
 
         return (
-          <div className="flex justify-center font-bold px-1 rounded relative cursor-pointer align-center ">
+          <div className="flex justify-center  px-1 rounded relative cursor-pointer align-center ">
             {value !== 0 && new Date(today) >= new Date(eventDay) && (
               <div className="absolute top-1/2 left-0 w-full border-t-2 border-green-500 transform -translate-y-1/2"></div>
             )}
             {value === 0 && new Date(today) > new Date(eventDay) && (
               <div className="absolute top-1/2 left-0 w-full border-t-2 border-red-500 transform -translate-y-1/2"></div>
             )}
-            <div className=" capitalize mr-2">{event.title}</div>:
-            <div className="ml-2">
+            <div className=" capitalize mr-2 truncate">{event.title}</div>:
+            <div className="ml-2 ">
               {today === eventDay || today > eventDay ? value : "Not Yet"}
             </div>
           </div>
@@ -156,9 +156,10 @@ const HabitsCalendar = () => {
       }}
       eventClassNames={(arg) => {
         const viewType = arg.view.type;
-        return viewType === "dayGridDay" ? ["w-100 justify-self-center my-3"] : [];
+        return viewType === "dayGridDay"
+          ? ["w-100 justify-self-center my-3"]
+          : [];
       }}
-      
     />
   );
 };
