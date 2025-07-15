@@ -46,7 +46,7 @@ const useHabitQuery = () => {
   };
 
   const editHabit = (habitToEdit: IHabit) => {
-    if (!data.map((habit: IHabit) => habit.name).includes(habitToEdit.name)) {
+    if (!data.map((habit: IHabit) => habit.name).includes(habitToEdit?.name)) {
       alert("Does not exist");
       return;
     }
@@ -55,7 +55,7 @@ const useHabitQuery = () => {
     } else {
       updateHabit(
         data
-          .filter((habit: IHabit) => habit.name !== habitToEdit.name)
+          .filter((habit: IHabit) => habit.name !== habitToEdit?.name)
           .concat(habitToEdit)
       );
     }
