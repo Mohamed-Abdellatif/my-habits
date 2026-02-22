@@ -58,12 +58,12 @@ const HabitsChart = () => {
   const chartConfig = {
     habit: {
       label: chartOptions.habit.toUpperCase(),
-      color: "lightblue",
+      color: "grey",
     },
   } satisfies ChartConfig;
 
   return (
-    <Card>
+    <Card className="bg-white">
       <CardHeader>
         <CardTitle className="capitalize">
           {currentHabit?.name}'s Bar Chart
@@ -72,7 +72,7 @@ const HabitsChart = () => {
       </CardHeader>
 
       <CardContent>
-        <div className="w-full h-100">
+        <div className="w-full h-100 ">
           <ResponsiveContainer width="100%" height="100%">
             <ChartContainer config={chartConfig}>
               <BarChart accessibilityLayer data={chartData}>

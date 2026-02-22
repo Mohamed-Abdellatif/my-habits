@@ -4,11 +4,25 @@
   padding: 0.5rem;
   text-align: center;
 }
+/* #89CFF0 */
 body {
-  background: #ecfdf5;
+  background: #d8f1f9;
+
   margin: 0;
   min-height: 100vh;
   font-family: system-ui, sans-serif;
+}
+
+.fc .fc-button-primary {
+  background-color: #1c7aa5; 
+}
+
+.fc .fc-col-header-cell {
+  background-color: #1c7aa5;
+  color: white;
+}
+.fc-daygrid-day-frame {
+  background-color: white;
 }
 
 .logo {
